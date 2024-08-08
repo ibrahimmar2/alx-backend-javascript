@@ -1,28 +1,32 @@
-class Building {
-  constructor(sqft) {
-    if (this.constructor !== Building) {
-      if (typeof this.evacuationWarningMessage !== 'function') {
-        throw new Error(
-          'Class extending Building must override evacuationWarningMessage',
-        );
-      }
-    }
-    this.sqft = sqft;
+export default class HolbertonClass {
+  constructor(size, location) {
+    this.size = size;
+    this.location = location;
   }
 
-  /**
-     * @param {Number} sqft
-     */
-  set sqft(sqft) {
-    if (typeof sqft !== 'number') {
-      throw new TypeError('sqft nust be a number');
-    }
-    this._sqft = sqft;
+  get size() {
+    return this._size;
   }
 
-  get sqft() {
-    return this._sqft;
+  set size(value) {
+    this._size = value;
+  }
+
+  get location() {
+    return this._location;
+  }
+
+  set location(value) {
+    this._location = value;
+  }
+
+  [Symbol.toPrimitive](hint) {
+    if (hint === 'number') {
+      return this.size;
+    }
+    if (hint === 'string') {
+      return this.location;
+    }
+    return this;
   }
 }
-
-export default Building;
